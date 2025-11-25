@@ -1,9 +1,6 @@
 
 # ✨ **GitHub Actions – DevOps**
-
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=githubactions,github,git,devops" height="90" />
-</p>
+![GitHub Actions GIF](githubaction.gif)
 
 ---
 
@@ -19,6 +16,8 @@ It helps developers **build, test, and deploy applications automatically** using
 ---
 
 # 🚀 **CI / CD in GitHub Actions**
+
+![GitHub Actions GIF](cicd.gif)
 
 ## 🔧 **CI – Continuous Integration**
 
