@@ -228,47 +228,6 @@ Monitor → Feedback → Plan
 
 ---
 
-# 🛠️ **Common Tools Used With GitHub Actions**
-
-## 🧩 **1. Cloud Providers**
-
-* AWS (ECS, Lambda, EC2, EKS, S3)
-* Microsoft Azure
-* Google Cloud Platform
-
-## 🐳 **2. Containers & Orchestration**
-
-* Docker
-* Docker Hub / GHCR
-* Kubernetes (EKS, AKS, GKE)
-* Helm
-
-## 🏗️ **3. Infrastructure as Code**
-
-* Terraform
-* Ansible
-* AWS CloudFormation
-
-## 🧪 **4. Testing Frameworks**
-
-* PyTest
-* Jest
-* JUnit
-* Selenium
-
-## 🔐 **5. Security & Scanning**
-
-* CodeQL
-* Trivy
-* Snyk
-
-## 🚀 **6. Deployment Utilities**
-
-* SSH
-* Rsync
-* GitHub Environments
-* GitHub Secrets
-
 
 ---
 
