@@ -87,41 +87,144 @@ Examples where GitHub Actions deploys automatically:
 
 # 🔄 **Pipeline Flow – How GitHub Actions Works**
 
-<p align="center"><b>Push → Build → Test → Package → Deploy → Notify</b></p>
+Here is your **well-structured, clean, decorated `README.md`** for **CI/CD Flow in DevOps** — formatted perfectly for GitHub.
 
-### **1️⃣ Developer pushes code**
+You can copy-paste directly into your repo.
 
-⬇
+---
 
-### **2️⃣ Workflow triggers automatically**
+# ✨ **CI/CD Flow in DevOps — Complete Notes**
 
-(pull request, push, schedule, manual trigger)
-⬇
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=githubactions,git,github,devops" height="85" />
+</p>
 
-### **3️⃣ CI Stage**
+---
 
+## 📌 **Overview**
+
+CI/CD (Continuous Integration & Continuous Delivery/Deployment) is the core practice in DevOps that automates **building**, **testing**, **releasing**, and **deploying** software reliably and quickly.
+
+The flow follows the **DevOps Infinity Loop**, covering everything from planning to monitoring.
+
+---
+
+# 🔁 **DevOps Infinity Loop (CI/CD Phases)**
+![cicd GIF](flow.gif)
+
+<p align="center">
+  <b>PLAN → CODE → BUILD → TEST → RELEASE → DEPLOY → OPERATE → MONITOR</b>
+</p>
+
+---
+
+# 🔵 **1. CI – Continuous Integration (Left Side)**
+
+CI focuses on improving code quality and preventing bugs before deployment.
+
+### **1️⃣ PLAN**
+
+* Understand requirements
+* Break tasks into stories
+* Prepare development roadmap
+
+### **2️⃣ CODE**
+
+* Developers write code
+* Code is pushed to GitHub
+* Version control using Git
+
+### **3️⃣ BUILD**
+
+* Compile application
 * Install dependencies
-* Build app
-* Run tests
-* Run code scans
-  ⬇
+* Create artifacts (Docker images, executables)
 
-### **4️⃣ Package Application**
+### **4️⃣ TEST**
 
-* Docker image
-* Zip release
-* Build artifact
-  ⬇
+* Automated tests run:
 
-### **5️⃣ CD Stage**
+  * Unit tests
+  * Integration tests
+  * Security scanning
+* Ensures no broken code reaches main branch
 
-* Deploy to cloud
-* Manual approval (Delivery) or Auto (Deployment)
-  ⬇
+> ✅ **Goal of CI:** Early bug detection + stable codebase
 
-### **6️⃣ Notification**
+---
 
-GitHub → Email → Slack → Teams
+# 🟠 **2. CD – Continuous Delivery / Deployment (Right Side)**
+
+CD focuses on pushing ready code into production environments.
+
+### **5️⃣ RELEASE**
+
+* Generate production-ready artifacts
+* Store Docker images / zip files
+* Choose between Delivery (manual approval) or Deployment (automatic release)
+
+### **6️⃣ DEPLOY**
+
+* Deploy to cloud platforms:
+
+  * AWS ECS / EC2 / EKS
+  * Kubernetes
+  * Azure
+  * Google Cloud
+* Can deploy using GitHub Actions, Terraform, ArgoCD, Jenkins
+
+### **7️⃣ OPERATE**
+
+* Application runs in production
+* Handle traffic, logs, scaling
+* Ensure availability and performance
+
+### **8️⃣ MONITOR**
+
+* Track metrics:
+
+  * Latency
+  * CPU/Memory
+  * Errors
+  * Crashes
+* Tools like Prometheus, Grafana, CloudWatch
+
+> ✅ **Goal of CD:** Fast, reliable, automated deployments
+
+---
+
+# 📦 **Complete CI/CD Pipeline Flow**
+
+```
+Developer Pushes Code
+        ↓
+Continuous Integration
+(Build → Test → Scan)
+        ↓
+Create Production Artifact
+        ↓
+Continuous Delivery/Deployment
+(Release → Deploy)
+        ↓
+App Runs in Production
+        ↓
+Monitor → Feedback → Plan
+```
+
+---
+
+# 🎯 **Final Summary**
+
+| Phase       | Description            |
+| ----------- | ---------------------- |
+| **Plan**    | Define what to build   |
+| **Code**    | Write application code |
+| **Build**   | Compile / package      |
+| **Test**    | Ensure quality         |
+| **Release** | Prepare for deployment |
+| **Deploy**  | Push to cloud/servers  |
+| **Operate** | Run app in production  |
+| **Monitor** | Track performance      |
 
 ---
 
