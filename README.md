@@ -81,7 +81,7 @@ jobs:
 ---
 
 # 🖥️ **3. Runners (Hosted & Self-Hosted)**
-
+A **Runner** is a server or virtual machine where your workflow jobs actually execute. It's the compute environment that picks up jobs from GitHub Actions, runs the defined steps, and reports the results back to GitHub.
 ## 🟦 **3.1 GitHub-Hosted Runner**
 
 Fully managed machines provided by GitHub.
