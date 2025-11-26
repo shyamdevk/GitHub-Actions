@@ -476,7 +476,7 @@ Simple, easy to understand, perfect for DevOps notes or GitHub documentation.
 
 ---
 
-# 🧪 **Software Testing – DevOps Notes (Simple & Clear)**
+# 🧪 **Software Testing – DevOps**
 
 ![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/image/test.gif)
 <p align="center">
