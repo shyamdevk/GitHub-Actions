@@ -14,6 +14,233 @@ It helps developers **build, test, and deploy applications automatically** using
 ```
 
 ---
+Here is your **fully structured, clean, decorated `README.md` section** for:
+
+✔ Workflow
+✔ Jobs
+✔ Hosted & Self-Hosted Runners
+✔ Event-Driven Triggers
+
+Perfect to paste directly into your README.
+
+---
+
+# ⚙️ **GitHub Actions – Workflow, Jobs, Runners & Event Triggers**
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=githubactions,git,github" height="80" />
+</p>
+
+---
+
+## 📘 **1. Workflow**
+
+A **workflow** is an automated process that runs inside GitHub Actions.
+
+* Written in **YAML**
+* Saved inside:
+
+  ```
+  .github/workflows/
+  ```
+* Used for CI, CD, testing, deployment, scanning, etc.
+
+### **Example:**
+
+```yaml
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+```
+
+---
+
+# 🔧 **2. Job**
+
+A **job** is a group of steps executed on a runner.
+
+### Key Points:
+
+* Each job runs on its own runner
+* Jobs run in **parallel** unless `needs:` is used
+* Contains multiple steps (commands/action calls)
+
+### Example:
+
+```yaml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+```
+
+---
+
+# 🖥️ **3. Runners (Hosted & Self-Hosted)**
+
+## 🟦 **3.1 GitHub-Hosted Runner**
+
+Fully managed machines provided by GitHub.
+
+| Feature  | Details                                        |
+| -------- | ---------------------------------------------- |
+| OS       | ubuntu, windows, macOS                         |
+| Setup    | No setup required                              |
+| Tools    | Pre-installed: git, Docker, Node, Python, Java |
+| Best For | Standard CI/CD automation                      |
+
+### **Pros**
+
+* No maintenance
+* Fast
+* Secure
+* Ready-to-use
+
+### **Cons**
+
+* Limited free minutes
+* No deep customization
+
+---
+
+## 🟩 **3.2 Self-Hosted Runner**
+
+Your own machine that executes workflows.
+
+| Feature       | Details                                        |
+| ------------- | ---------------------------------------------- |
+| Machine       | Your server, PC, VM, cloud instance            |
+| Setup         | Must install GitHub runner manually            |
+| Customization | Full root/admin control                        |
+| Best For      | Heavy builds, private networks, custom tooling |
+
+### **Pros**
+
+* Unlimited runtime
+* Full customization
+* No GitHub minutes usage
+
+### **Cons**
+
+* You maintain OS/security
+* More setup needed
+
+---
+
+# ⚡ **Hosted vs Self-Hosted (Comparison Table)**
+
+| Feature       | GitHub-Hosted  | Self-Hosted                    |
+| ------------- | -------------- | ------------------------------ |
+| Setup         | Automatic      | Manual                         |
+| Maintenance   | GitHub handles | You handle                     |
+| Cost          | Free (limited) | Hardware cost                  |
+| Customization | Low            | Full                           |
+| Best Use      | Normal CI/CD   | Heavy workloads / custom tools |
+| Security      | Managed        | Your responsibility            |
+
+---
+
+# 🔔 **4. Event-Driven Triggers (How Workflows Start)**
+
+Workflows run automatically based on **GitHub events**.
+
+---
+
+## 📂 **4.1 Code-Based Triggers**
+
+| Trigger        | When It Runs          |
+| -------------- | --------------------- |
+| `push`         | Code pushed to branch |
+| `pull_request` | PR opened or updated  |
+| `delete`       | Branch or tag deleted |
+
+**Example:**
+
+```yaml
+on: push
+```
+
+---
+
+## 🧑‍💻 **4.2 Manual Trigger**
+
+Starts workflow manually from the GitHub UI.
+
+```yaml
+on:
+  workflow_dispatch:
+```
+
+---
+
+## ⏱️ **4.3 Scheduled Trigger (Cron Jobs)**
+
+Runs at fixed times (daily, hourly, etc.)
+
+```yaml
+on:
+  schedule:
+    - cron: "0 0 * * *"   # runs daily at midnight
+```
+
+---
+
+## 📦 **4.4 Repository Activity Triggers**
+
+Triggered by GitHub activity:
+
+| Event     | Description            |
+| --------- | ---------------------- |
+| `issues`  | Issue created/edited   |
+| `release` | Release published      |
+| `fork`    | Repo is forked         |
+| `watch`   | Someone stars the repo |
+
+---
+
+## 🚀 **4.5 Deployment Triggers**
+
+Used for CD pipelines.
+
+| Event               | Description                 |
+| ------------------- | --------------------------- |
+| `deployment`        | Deployment request created  |
+| `deployment_status` | Deployment succeeded/failed |
+
+---
+
+# 🔄 **Workflow → Job → Runner → Output Flow**
+
+```
+(Event Trigger)
+        ↓
+Workflow Starts
+        ↓
+Jobs Run (parallel or sequential)
+        ↓
+Runner Executes Steps
+        ↓
+Outputs (build, test, deploy)
+```
+
+---
+
+# 🎯 **Summary Table**
+
+| Concept            | Meaning                                    |
+| ------------------ | ------------------------------------------ |
+| **Workflow**       | Automation file that defines CI/CD         |
+| **Job**            | Group of steps executed on a runner        |
+| **Runner**         | Machine that executes job steps            |
+| **GitHub-Hosted**  | Pre-configured GitHub machine              |
+| **Self-Hosted**    | Your own custom machine                    |
+| **Event Triggers** | Actions that start workflows automatically |
+
+---
 
 # 🚀 **CI / CD in GitHub Actions**
 
