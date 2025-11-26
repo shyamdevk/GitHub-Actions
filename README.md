@@ -1,6 +1,6 @@
 
 # ✨ **GitHub Actions – DevOps**
-![GitHub Actions GIF](githubaction.gif)
+![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/image/githubaction.gif)
 
 ---
 
@@ -17,7 +17,7 @@ It helps developers **build, test, and deploy applications automatically** using
 
 # 🚀 **CI / CD in GitHub Actions**
 
-![GitHub Actions GIF](cicd.gif)
+![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/image/cicd.gif)
 
 ## 🔧 **CI – Continuous Integration**
 
@@ -110,7 +110,7 @@ The flow follows the **DevOps Infinity Loop**, covering everything from planning
 ---
 
 # 🔁 **DevOps Infinity Loop (CI/CD Phases)**
-![cicd GIF](flow.gif)
+![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/image/flow.gif)
 
 <p align="center">
   <b>PLAN → CODE → BUILD → TEST → RELEASE → DEPLOY → OPERATE → MONITOR</b>
@@ -251,7 +251,7 @@ Simple, easy to understand, perfect for DevOps notes or GitHub documentation.
 
 # 🧪 **Software Testing – DevOps Notes (Simple & Clear)**
 
-![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/images/test.gif)
+![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/image/test.gif)
 <p align="center">
   <img src="https://skillicons.dev/icons?i=pytest,selenium,githubactions,git" height="80" />
 </p>
