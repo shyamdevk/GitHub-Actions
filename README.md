@@ -57,7 +57,7 @@ jobs:
       - name: Say Hello
         run: echo "Hello World"
 ```
-Here is the **simplest explanation** of `workflow_dispatch`:
+Use of `workflow_dispatch`:
 
 ---
 
@@ -75,7 +75,7 @@ on:
 
 ---
 
-## 📝 Explanation (Simple Notes)
+## 📝 Explanation
 
 | Part       | Meaning                                   |
 | ---------- | ----------------------------------------- |
