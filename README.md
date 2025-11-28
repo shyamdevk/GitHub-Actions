@@ -45,15 +45,47 @@ A **workflow** is an automated process that runs inside GitHub Actions.
   ```
 * Used for CI, CD, testing, deployment, scanning, etc.
 
-### **Example:**
+```yaml
+name: Hello World
+
+on: push
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "Hello World"
+```
+Here is the **simplest explanation** of `workflow_dispatch`:
+
+---
+
+
+`workflow_dispatch` allows you to **run a workflow manually**.
+
+That means you can click a **button in GitHub Actions** and start the workflow whenever you want.
+
+# 📘 Example
 
 ```yaml
-name: CI
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
+on:
+  workflow_dispatch:
 ```
+
+---
+
+## 📝 Explanation (Simple Notes)
+
+| Part       | Meaning                                   |
+| ---------- | ----------------------------------------- |
+| `name`     | Workflow name                             |
+| `on: push` | Runs whenever code is pushed              |
+| `jobs`     | Group of tasks                            |
+| `hello`    | Job name                                  |
+| `runs-on`  | Uses Ubuntu runner (virtual machine)      |
+| `steps`    | List of commands to run                   |
+| `run`      | Executes a command (`echo "Hello World"`) |
 
 ---
 
