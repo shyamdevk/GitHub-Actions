@@ -836,4 +836,125 @@ Perfect for freshers learning DevOps + GitHub Actions.
 
 ---
 
+# 📘 GitHub Actions: Simple Workflow to Display an Image File
+
+This guide explains how to:
+
+* Create a GitHub repository
+* Upload an image file
+* Create a GitHub Actions workflow
+* Use an Action (`actions/checkout`)
+* Run `ls` to display the image in workflow logs
+
+Perfect for **beginners** learning GitHub Actions.
+
+---
+
+## 🧰 Prerequisites
+
+* A GitHub account
+* Basic understanding of repository creation
+
+---
+
+# 🪜 Step 1: Create a GitHub Repository
+
+1. Go to **[https://github.com](https://github.com)**
+2. Click **New Repository**
+3. Enter a name → example: `actions-image-demo`
+4. Click **Create Repository**
+
+---
+
+# 🖼️ Step 2: Upload an Image File
+
+1. Open your new repository
+2. Click **Add file → Upload files**
+3. Upload any image, for example: `myphoto.png`
+4. Click **Commit changes**
+
+Your repository now has the image.
+
+---
+
+# 📂 Step 3: Create the Workflow Folder
+
+GitHub Actions workflows must be inside this path:
+
+```
+.github/workflows/
+```
+
+To create it:
+
+1. Click **Add file → Create new file**
+2. Name it exactly:
+
+```
+.github/workflows/simple-image-check.yml
+```
+
+---
+
+# ⚙️ Step 4: Add the Workflow YAML
+
+Paste the workflow below:
+
+```yaml
+name: Display Image File
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  show-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3     # Downloads your repo + image file
+
+      - name: List files in repo
+        run: ls -l                    # Shows your image in workflow logs
+```
+
+Click **Commit changes**.
+
+---
+
+# ▶️ Step 5: Run and Verify the Workflow
+
+1. Go to the **Actions** tab
+2. Select your workflow: **Display Image File**
+3. GitHub runs the workflow automatically
+4. Open the job
+5. Look at the **List files in repo** step
+
+You will see output like:
+
+```
+-rw-r--r--   1 runner  staff   20480 Dec 8  myphoto.png
+```
+
+This confirms:
+
+* The workflow ran
+* `actions/checkout` downloaded the image
+* `ls` displayed it
+
+---
+
+# 📝 Explanation of Key Parts
+
+### **`uses: actions/checkout@v3`**
+
+This action **downloads your entire repository** into the GitHub Actions runner, including your image file.
+
+### **`run: ls -l`**
+
+Runs a shell command that **lists all files**, showing the image in workflow logs.
+
+---
+
 
