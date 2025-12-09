@@ -817,6 +817,11 @@ Example: React build folder, optimized JS, etc.
 
 ---
 
+### **`uses:`** → tells GitHub Actions to run a **pre-built reusable action** created by GitHub or the community.
+
+### **`actions:`** → refers to those reusable **automation tools** (like checkout, setup-node) that perform specific tasks inside a workflow.
+
+
 # 🎯 What This CI/CD Pipeline Does
 
 | Step                 | Purpose                         |
