@@ -628,6 +628,207 @@ Example:
 
 If tests fail → **CI fails** → code cannot be merged.
 
+
+
+# 📘 Simple CI/CD Pipeline using GitHub Actions
+
+A beginner-friendly guide to understanding a very simple CI/CD pipeline using GitHub Actions.
+
+---
+
+## 🚀 Overview
+
+This guide explains a **basic CI/CD workflow** that:
+
+* Runs automatically when you push code
+* Checks out your project
+* Installs dependencies
+* Runs tests
+* Builds your project
+
+Everything is kept **simple for freshers**.
+
+---
+
+## 📂 Workflow File Location
+
+Create the file in the following path:
+
+```
+.github/workflows/simple-ci-cd.yml
+```
+
+---
+
+## 🧪 Simple CI/CD Workflow (YAML)
+
+```yaml
+name: Simple CI-CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+```
+
+---
+
+# 📝 Step-by-Step Explanation (Beginner Friendly)
+
+## 1️⃣ Workflow Name
+
+```yaml
+name: Simple CI-CD
+```
+
+This gives a **name** to your pipeline.
+It appears in GitHub → Actions tab.
+
+---
+
+## 2️⃣ When Should the Workflow Run?
+
+```yaml
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+```
+
+Your pipeline runs when:
+✔ Code is **pushed to main branch**
+✔ A **pull request** is created
+
+This is how CI (Continuous Integration) works.
+
+---
+
+## 3️⃣ Define Jobs
+
+```yaml
+jobs:
+  build-and-test:
+```
+
+A **job** is like a container of tasks.
+Here the job name is `build-and-test`.
+
+---
+
+## 4️⃣ Choose the Runner (Server)
+
+```yaml
+runs-on: ubuntu-latest
+```
+
+GitHub gives you a temporary virtual machine:
+✔ Ubuntu OS
+✔ Clean environment
+✔ Auto-destroyed after pipeline finishes
+
+---
+
+## 5️⃣ CI/CD Steps
+
+Steps run one after another.
+
+---
+
+### ✔ Step 1: Checkout Code
+
+```yaml
+- name: Checkout code
+  uses: actions/checkout@v3
+```
+
+Downloads your repository into the workflow runner.
+
+---
+
+### ✔ Step 2: Setup Node.js
+
+```yaml
+- name: Setup Node.js
+  uses: actions/setup-node@v3
+  with:
+    node-version: '18'
+```
+
+Installs **Node.js v18**.
+Required for projects using JavaScript or Node.
+
+---
+
+### ✔ Step 3: Install Dependencies
+
+```yaml
+- name: Install dependencies
+  run: npm install
+```
+
+Installs packages from your `package.json`.
+Example: Express, React, Vue, etc.
+
+---
+
+### ✔ Step 4: Run Tests
+
+```yaml
+- name: Run tests
+  run: npm test
+```
+
+Executes your tests.
+Helps find bugs early before deployment.
+
+---
+
+### ✔ Step 5: Build the Project
+
+```yaml
+- name: Build project
+  run: npm run build
+```
+
+Builds your application.
+Example: React build folder, optimized JS, etc.
+
+---
+
+# 🎯 What This CI/CD Pipeline Does
+
+| Step                 | Purpose                         |
+| -------------------- | ------------------------------- |
+| Checkout             | Gets code from GitHub           |
+| Setup Node.js        | Prepares environment            |
+| Install Dependencies | Sets up project                 |
+| Run Tests            | Ensures code is correct         |
+| Build                | Creates production-ready output |
+
+Perfect for freshers learning DevOps + GitHub Actions.
+
 ---
 
 
