@@ -956,5 +956,13 @@ This action **downloads your entire repository** into the GitHub Actions runner,
 Runs a shell command that **lists all files**, showing the image in workflow logs.
 
 ---
+---
+
+## 🔗 Apache Maven – Basics & Hands-on Lab
+### 👉 GitHub Repository:
+🔹 **Apache Maven Basics & Lab**  
+🔗 https://github.com/shyamdevk/Apache-Maven.git
+
+---
 
 
