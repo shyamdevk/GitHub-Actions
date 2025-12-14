@@ -1218,8 +1218,4 @@ This lab demonstrates how to configure and use a **GitHub Self-Hosted Runner** t
 
 ---
 
-⭐ **Recommended for beginners learning DevOps & CI/CD**
-
-```
-
 
