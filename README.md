@@ -964,5 +964,262 @@ Runs a shell command that **lists all files**, showing the image in workflow log
 🔗 https://github.com/shyamdevk/Apache-Maven.git
 
 ---
+Perfect 👍
+Below is a **well-decorated, clean, fresher-friendly `README.md`** for a **GitHub Self-Hosted CI/CD Lab**.
+You can **directly copy–paste this as `README.md`** in your repository.
+
+---
+
+# 🚀 GitHub CI/CD Self-Hosted Runner Lab
+
+## 📌 Overview
+This lab demonstrates how to set up a **CI/CD pipeline using a GitHub Self-Hosted Runner**.  
+Instead of using GitHub’s default runners, the workflow runs on **your own system (local machine / VM / EC2)**.
+
+## 🎯 Objectives
+By completing this lab, you will:
+- Understand what a **self-hosted runner** is
+- Configure a self-hosted runner in GitHub
+- Execute a CI/CD workflow on your own system
+- Verify pipeline execution using GitHub Actions logs
+
+---
+
+## 🛠 Tools & Technologies
+- **GitHub**
+- **GitHub Actions**
+- **Self-Hosted Runner**
+- **Linux System / VM / EC2**
+- **Shell Commands**
+
+---
+
+## 🧩 Lab Architecture (Simple View)
+
+```
+
+Developer (You)
+    |
+    v
+GitHub Repository
+    |
+    v
+GitHub Actions Workflow
+    |
+    v
+Self-Hosted Runner (Your System)
+
+```
+
+---
+
+## 📁 Repository Structure
+
+```
+
+self-hosted-ci-lab/
+├── README.md
+└── .github/
+└── workflows/
+└── self-hosted.yml
+
+```
+
+---
+
+## 🚀 Step 1: Create GitHub Repository
+
+1. Login to **GitHub**
+2. Click **New Repository**
+3. Repository name:
+```
+
+self-hosted-ci-lab
+
+````
+4. ✅ Select **Add README.md**
+5. Click **Create Repository**
+
+✔ Repository created successfully
+
+---
+
+## 🚀 Step 2: Open Self-Hosted Runner Settings
+
+1. Open your repository
+2. Go to **Settings**
+3. Navigate to **Actions → Runners**
+4. Click **New self-hosted runner**
+
+GitHub will now show setup instructions.
+
+---
+
+## 🚀 Step 3: Choose Runner Platform
+
+- Operating System: **Linux**
+- Architecture: **x64**
+
+> Linux is commonly used in real DevOps environments.
+
+---
+
+## 🚀 Step 4: Download Runner on Your System
+
+Run the following commands on your Linux system:
+
+### Create a directory
+```bash
+mkdir actions-runner
+cd actions-runner
+````
+
+### Download runner package
+
+```bash
+curl -o actions-runner-linux-x64-2.317.0.tar.gz \
+https://github.com/actions/runner/releases/download/v2.317.0/actions-runner-linux-x64-2.317.0.tar.gz
+```
+
+### Extract the package
+
+```bash
+tar xzf actions-runner-linux-x64-2.317.0.tar.gz
+```
+
+✔ Runner files downloaded successfully
+
+---
+
+## 🚀 Step 5: Configure the Runner
+
+GitHub provides a configuration command similar to:
+
+```bash
+./config.sh --url https://github.com/<your-username>/self-hosted-ci-lab --token <TOKEN>
+```
+
+### During configuration:
+
+* Runner name → Press **Enter**
+* Work folder → Press **Enter**
+* Labels → Press **Enter**
+
+✔ Your system is now linked to the GitHub repository
+
+---
+
+## 🚀 Step 6: Start the Runner
+
+Run:
+
+```bash
+./run.sh
+```
+
+⚠️ **Important**
+
+* Keep this terminal **open**
+* Closing it will stop the runner
+
+### Verify runner status:
+
+* GitHub → **Settings → Actions → Runners**
+* Status should show **Idle (green)**
+
+---
+
+## 🚀 Step 7: Create CI/CD Workflow
+
+1. In your repository, click **Add file → Create new file**
+
+2. File name:
+
+   ```
+   .github/workflows/self-hosted.yml
+   ```
+
+3. Paste the following workflow:
+
+```yaml
+name: Self-Hosted CI/CD Lab
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  demo-job:
+    runs-on: self-hosted
+
+    steps:
+    - name: Print welcome message
+      run: echo "Hello from Self-Hosted Runner!"
+
+    - name: Show system information
+      run: |
+        uname -a
+        whoami
+        pwd
+```
+
+4. Click **Commit new file**
+
+---
+
+## 🚀 Step 8: Trigger the Pipeline
+
+* Any commit to `main` triggers the workflow
+* Go to **Actions** tab
+* Open the latest workflow run
+
+✔ Job executes on your **self-hosted runner**
+
+---
+
+## 📊 Expected Output (Verification)
+
+You should see logs like:
+
+```
+Hello from Self-Hosted Runner!
+Linux ip-172-31-xx-xx ...
+runner
+/home/runner/actions-runner
+```
+
+✅ This confirms:
+
+* Pipeline executed successfully
+* Job ran on **your system**
+* Self-hosted runner is working
+
+---
+
+## 🧠 Important Notes
+
+* Runner works only when your system is **ON**
+* Internet connection is required
+* Used widely in real-world DevOps environments
+
+---
+
+## ✅ Result
+
+✔ Self-hosted runner configured
+✔ CI/CD workflow executed
+✔ Output verified in GitHub Actions
+
+---
+
+## 🎯 Conclusion
+
+This lab demonstrates how to configure and use a **GitHub Self-Hosted Runner** to execute CI/CD workflows on a user-managed system. It provides hands-on experience with real-world DevOps practices and GitHub Actions.
+
+---
+
+⭐ **Recommended for beginners learning DevOps & CI/CD**
+
+```
 
 
