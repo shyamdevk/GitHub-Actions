@@ -964,9 +964,6 @@ Runs a shell command that **lists all files**, showing the image in workflow log
 🔗 https://github.com/shyamdevk/Apache-Maven.git
 
 ---
-Perfect 👍
-Below is a **well-decorated, clean, fresher-friendly `README.md`** for a **GitHub Self-Hosted CI/CD Lab**.
-You can **directly copy–paste this as `README.md`** in your repository.
 
 ---
 
