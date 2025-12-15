@@ -1215,4 +1215,232 @@ This lab demonstrates how to configure and use a **GitHub Self-Hosted Runner** t
 
 ---
 
+# 📧 CI/CD Email Notifications using AWS SES & GitHub Actions (OIDC)
+
+![AWS](https://img.shields.io/badge/AWS-SES-orange)
+![GitHub Actions](https://img.shields.io/badge/GitHub-Actions-blue)
+![Security](https://img.shields.io/badge/Auth-OIDC-green)
+
+---
+
+## 🧪 Lab Title
+
+**Integrate AWS SES with GitHub Actions CI/CD Pipeline using OIDC Authentication**
+
+---
+
+## 🎯 Lab Objective
+
+This lab demonstrates how to **send email notifications using AWS Simple Email Service (SES)** when a **GitHub Actions workflow succeeds or fails**, using **OIDC (OpenID Connect)** for secure authentication **without storing AWS access keys**.
+
+---
+
+## 🧠 What You Will Learn
+
+* Verify email identities in **AWS SES**
+* Configure **GitHub → AWS authentication** using OIDC
+* Create an **IAM Role for GitHub Actions**
+* Send **Success & Failure emails** from CI/CD pipeline
+* Implement **secure, production-ready CI/CD**
+
+---
+
+## 🏗️ Architecture Overview
+
+<p align="center">
+  <img src="https://github.com/shyamdevk/GitHub-Actions/blob/image/ses.png" 
+       alt="GitHub Actions SES Flow Diagram" 
+       width="450"/>
+</p>
+---
+
+## 📌 Prerequisites
+
+* AWS Account
+* GitHub Account
+* AWS SES Region: **us-east-1**
+* GitHub Repository with `main` branch
+
+---
+
+## 🔹 STEP 1: Verify Email Identities in AWS SES
+
+1. Open **AWS Console → Simple Email Service (SES)**
+2. Ensure region is **us-east-1**
+3. Go to **Identities → Create identity**
+4. Select **Email address**
+5. Add **Sender Email ID** and verify it
+6. Repeat the same steps for **Receiver Email ID**
+
+⚠️ **Note:**
+If SES is in **Sandbox mode**, **both sender and receiver emails must be verified**.
+
+---
+
+## 🔹 STEP 2: Create OIDC Identity Provider for GitHub
+
+1. Go to **AWS IAM → Identity providers**
+2. Click **Add provider**
+3. Configure as follows:
+
+| Setting       | Value                                         |
+| ------------- | --------------------------------------------- |
+| Provider type | OpenID Connect                                |
+| Provider URL  | `https://token.actions.githubusercontent.com` |
+| Audience      | `sts.amazonaws.com`                           |
+
+4. Click **Add provider**
+
+---
+
+## 🔹 STEP 3: Create IAM Role for GitHub Actions
+
+1. Go to **IAM → Roles → Create role**
+
+2. Select **Web identity**
+
+3. Choose:
+
+   * Identity provider: **GitHub**
+   * Audience: **sts.amazonaws.com**
+
+4. Repository condition:
+
+```
+repo:YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME:*
+```
+
+5. Attach this **SES permissions policy**:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ses:SendEmail",
+        "ses:SendRawEmail"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+6. Name the role:
+
+```
+GitHub-SES
+```
+
+7. Copy the **Role ARN** (used in GitHub Actions)
+
+---
+
+## 🔹 STEP 4: Create GitHub Repository
+
+* Create a new GitHub repository
+* Ensure default branch is **main**
+
+---
+
+## 🔹 STEP 5: Add GitHub Actions Workflow
+
+Create the file:
+
+```
+.github/workflows/ses-ci.yml
+```
+
+### 📄 Workflow Code
+
+```yaml
+name: CI with AWS SES Email (OIDC)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::526888234336:role/GitHub-SES
+          aws-region: us-east-1
+
+      - name: Run build
+        run: |
+          echo "Running build..."
+          echo "Build completed successfully"
+          # Uncomment below line to test failure email
+          # exit 1
+
+      - name: Send Email Notification (Success)
+        if: success()
+        run: |
+          aws ses send-email \
+            --from "shyamdevk677@gmail.com" \
+            --destination "ToAddresses=novagaming677@gmail.com" \
+            --message "Subject={Data='✅ Build Success'},Body={Text={Data='CI build for ${{ github.repository }} succeeded.\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nRun URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'}}" \
+            --region us-east-1
+
+      - name: Send Email Notification (Failure)
+        if: failure()
+        run: |
+          aws ses send-email \
+            --from "shyamdevk677@gmail.com" \
+            --destination "ToAddresses=novagaming677@gmail.com" \
+            --message "Subject={Data='❌ Build Failed'},Body={Text={Data='CI build FAILED for ${{ github.repository }}.\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nLogs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'}}" \
+            --region us-east-1
+```
+
+---
+
+## 🧪 STEP 6: Test the Workflow
+
+### ✔ Success Email Test
+
+* Push any commit to `main`
+* Workflow succeeds
+* **Success email received**
+
+### ❌ Failure Email Test
+
+* Uncomment `exit 1`
+* Push again
+* **Failure email received**
+
+---
+
+## 🔐 Security Best Practices Used
+
+* No AWS access keys stored in GitHub
+* Uses **OIDC with short-lived credentials**
+* Least-privilege IAM role
+* Production-grade CI/CD security
+
+---
+
+## 📄 Final Outcome
+
+✔ Secure GitHub → AWS authentication
+✔ Automated email notifications
+✔ CI/CD success & failure visibility
+✔ Resume-ready DevOps project
+
+---
 
