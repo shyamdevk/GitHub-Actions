@@ -1505,7 +1505,7 @@ Use when the value is needed **everywhere**, such as:
 name: Demo Workflow
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: us-east-1  #env variable declared here
   APP_NAME: sample-app
 
 jobs:
@@ -1514,7 +1514,7 @@ jobs:
     steps:
       - name: Print variables
         run: |
-          echo "Region: $AWS_REGION"
+          echo "Region: $AWS_REGION"      #used here
           echo "App Name: $APP_NAME"
 ```
 
@@ -1545,12 +1545,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BUILD_ENV: production
+      BUILD_ENV: production   #env variable declared here
 
     steps:
       - name: Print job variable
         run: |
-          echo "Build Environment: $BUILD_ENV"
+          echo "Build Environment: $BUILD_ENV"   #env used here
 ```
 
 ### ✅ Beginner Tip
@@ -1583,9 +1583,9 @@ jobs:
     steps:
       - name: Step with variable
         env:
-          MESSAGE: "Hello from this step"
+          MESSAGE: "Hello from this step"     #env variable here
         run: |
-          echo "$MESSAGE"
+          echo "$MESSAGE"    #env varaible used here
 ```
 
 ### ✅ Beginner Tip
@@ -1669,6 +1669,372 @@ jobs:
         run: |
           echo "Deploying $SERVICE in $AWS_REGION with status $STATUS"
 ```
+
+---
+Got it 👍
+Here is a **very simple, beginner-friendly `README.md`** with **just ONE clear example** showing **environment variable + expression** together.
+
+---
+
+# 🌱 Environment Variables & Expressions in GitHub Actions
+
+## 📘 What is an Environment Variable?
+
+An environment variable stores a value that can be reused in a workflow.
+
+Example:
+
+```yaml
+ENV_NAME=production
+```
+
+---
+
+## 🧮 What is an Expression?
+
+An expression uses `${{ }}` to access GitHub information like:
+
+* repository name
+* branch name
+* commit ID
+
+Example:
+
+```yaml
+${{ github.repository }}
+```
+
+---
+
+## ✅ One Simple Example
+
+```yaml
+name: Simple Env and Expression Demo
+
+on: [push]
+
+env:
+  APP_NAME: DemoApp
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print values
+        run: |
+          echo "Application Name: $APP_NAME"
+          echo "Repository Name: ${{ github.repository }}"
+```
+
+---
+
+## 🔍 What is Happening Here?
+
+* `APP_NAME` → **Environment variable** (defined at workflow level)
+* `$APP_NAME` → Used inside shell command
+* `${{ github.repository }}` → **Expression** (gets repo name automatically)
+
+---
+
+
+# 🧪 LAB: Environment Variables in GitHub Actions (Workflow & Job Level)
+
+![GitHub Actions](https://img.shields.io/badge/GitHub-Actions-blue)
+![CI/CD](https://img.shields.io/badge/CI%2FCD-Beginner-green)
+
+---
+
+## 🎯 Lab Objective
+
+This lab helps beginners understand how to use **Environment Variables** in **GitHub Actions**.
+
+You will learn how to:
+
+* Create a GitHub Actions workflow
+* Define **workflow-level environment variables**
+* Define **job-level environment variables**
+* Use **both variables inside a job**
+
+---
+
+## 🔹 Step 1: Create a GitHub Repository
+
+1. Go to **GitHub**
+2. Click **New Repository**
+3. Name it (example: `env-variable-lab`)
+4. Keep the default branch as **main**
+5. Click **Create repository**
+
+---
+
+## 🔹 Step 2: Create Workflow File
+
+Inside your repository:
+
+1. Create the folder:
+
+   ```
+   .github/workflows
+   ```
+2. Create a file inside it:
+
+   ```
+   env-demo.yml
+   ```
+
+---
+
+## 🔹 Step 3: Add Workflow Code
+
+Paste the following code into **`env-demo.yml`**:
+
+```yaml
+name: Environment Variable Demo
+
+on:
+  push:
+    branches:
+      - main
+
+# Workflow-level environment variable
+env:
+  APP_NAME: MyFirstApp
+
+jobs:
+  demo-job:
+    runs-on: ubuntu-latest
+
+    # Job-level environment variable
+    env:
+      ENVIRONMENT: Development
+
+    steps:
+      - name: Print environment variables
+        run: |
+          echo "Application Name (Workflow Level): $APP_NAME"
+          echo "Environment Name (Job Level): $ENVIRONMENT"
+```
+
+---
+
+## 🔍 Step 4: Understand the Workflow (Simple Explanation)
+
+### ✔ Workflow-Level Environment Variable
+
+```yaml
+env:
+  APP_NAME: MyFirstApp
+```
+
+* Defined at the **workflow level**
+* Available to **all jobs and steps**
+* Accessed using:
+
+  ```bash
+  $APP_NAME
+  ```
+
+---
+
+### ✔ Job-Level Environment Variable
+
+```yaml
+env:
+  ENVIRONMENT: Development
+```
+
+* Defined **inside the job**
+* Available to **all steps of that job**
+* Accessed using:
+
+  ```bash
+  $ENVIRONMENT
+  ```
+
+---
+
+### ✔ Using Both Variables Together
+
+```bash
+echo "Application Name (Workflow Level): $APP_NAME"
+echo "Environment Name (Job Level): $ENVIRONMENT"
+```
+
+✔ Workflow-level variable is accessible inside the job
+✔ Job-level variable is accessible inside steps
+
+---
+
+## ▶️ Step 5: Run the Workflow
+
+1. Commit and push the file to the **main** branch
+2. Go to the **Actions** tab in GitHub
+3. Click **Environment Variable Demo**
+4. Open the latest workflow run
+5. Check the logs
+
+---
+
+## 📤 Expected Output
+
+You should see the following in the workflow logs:
+
+```
+Application Name (Workflow Level): MyFirstApp
+Environment Name (Job Level): Development
+```
+
+---
+
+## 🧠 Easy Way to Remember
+
+* **Workflow-level env** → Used everywhere
+* **Job-level env** → Used only in that job
+* Environment variables are accessed using `$VARIABLE_NAME`
+
+---
+
+# 📦 GitHub Actions Context Objects
+
+![GitHub Actions](https://img.shields.io/badge/GitHub-Actions-blue)
+![CI/CD](https://img.shields.io/badge/CI%2FCD-Automation-green)
+![Level](https://img.shields.io/badge/Level-Beginner-brightgreen)
+
+---
+
+## 📘 What Are Context Objects?
+
+**Context objects** are built-in objects provided by GitHub Actions.
+They contain **information about the workflow run**, such as:
+
+* Repository details
+* Branch and commit
+* Runner (machine) information
+* Job status
+
+You access context values using **expressions**:
+
+```text
+${{ context_name.property }}
+```
+
+---
+
+## 1️⃣ GitHub Context (`github`)
+
+### 🔹 What it Provides
+
+Information about:
+
+* Repository
+* Branch
+* Commit
+* Workflow run
+
+### 🔹 Syntax
+
+```yaml
+${{ github.<property> }}
+```
+
+### 🔹 Simple Example
+
+```yaml
+- name: GitHub context example
+  run: |
+    echo "Repository: ${{ github.repository }}"
+    echo "Branch: ${{ github.ref_name }}"
+```
+
+### 🔹 Common Properties
+
+| Property            | Description     |
+| ------------------- | --------------- |
+| `github.repository` | Repository name |
+| `github.ref_name`   | Branch name     |
+| `github.sha`        | Commit ID       |
+
+---
+
+## 2️⃣ Runner Context (`runner`)
+
+### 🔹 What it Provides
+
+Information about the **runner machine** that executes the job.
+
+### 🔹 Syntax
+
+```yaml
+${{ runner.<property> }}
+```
+
+### 🔹 Simple Example
+
+```yaml
+- name: Runner context example
+  run: |
+    echo "Runner OS: ${{ runner.os }}"
+    echo "Runner Name: ${{ runner.name }}"
+```
+
+### 🔹 Common Properties
+
+| Property      | Description      |
+| ------------- | ---------------- |
+| `runner.os`   | Operating system |
+| `runner.name` | Runner name      |
+
+---
+
+## 3️⃣ Job Context (`job`)
+
+### 🔹 What it Provides
+
+Information about the **current job**, especially its status.
+
+### 🔹 Syntax
+
+```yaml
+${{ job.<property> }}
+```
+
+### 🔹 Simple Example
+
+```yaml
+- name: Job context example
+  if: success()
+  run: |
+    echo "Job Status: ${{ job.status }}"
+```
+
+### 🔹 Common Properties
+
+| Property     | Description                   |
+| ------------ | ----------------------------- |
+| `job.status` | success / failure / cancelled |
+
+---
+
+## 🔁 One Combined Example (Easy to Understand)
+
+```yaml
+- name: Context objects demo
+  run: |
+    echo "Repository: ${{ github.repository }}"
+    echo "Branch: ${{ github.ref_name }}"
+    echo "Runner OS: ${{ runner.os }}"
+    echo "Job Status: ${{ job.status }}"
+```
+
+---
+
+## 🧠 Easy Way to Remember
+
+| Context  | Gives Information About |
+| -------- | ----------------------- |
+| `github` | Repo, branch, commit    |
+| `runner` | Machine running the job |
+| `job`    | Job execution status    |
 
 ---
 
