@@ -1443,4 +1443,233 @@ jobs:
 ✔ Resume-ready DevOps project
 
 ---
+Below is a **clean, well-decorated, beginner-friendly `README.md`** on **Environment Variables in GitHub Actions CI/CD**.
+You can **copy–paste directly** into your repository.
+
+---
+
+# 🌱 Environment Variables in GitHub Actions (CI/CD)
+
+![GitHub Actions](https://img.shields.io/badge/GitHub-Actions-blue)
+![CI/CD](https://img.shields.io/badge/CI%2FCD-Automation-green)
+![Beginner Friendly](https://img.shields.io/badge/Level-Beginner-brightgreen)
+
+![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/image/env.gif)
+
+---
+
+## 📘 What Are Environment Variables?
+
+Environment variables are **named values** that you can use inside your GitHub Actions workflows.
+They help you **store configuration values once and reuse them** without repeating or hard-coding them.
+
+### ✅ Why we use them
+
+* Avoid repeating the same values
+* Make workflows easy to read and maintain
+* Change values without touching multiple steps
+* Keep workflows clean and professional
+
+---
+
+## 📌 Levels of Environment Variables
+
+GitHub Actions supports **three levels** of environment variables:
+
+1. **Workflow level**
+2. **Job level**
+3. **Step level**
+
+Each level has a **different scope** (where it can be used).
+
+---
+
+## 1️⃣ Workflow-Level Environment Variables
+
+### 🔹 What is it?
+
+Variables defined at the **top of the workflow**.
+They are available to **all jobs and all steps**.
+
+### 🔹 When to use?
+
+Use when the value is needed **everywhere**, such as:
+
+* AWS Region
+* Application name
+* Environment name (dev, test, prod)
+
+### 🔹 Example
+
+```yaml
+name: Demo Workflow
+
+env:
+  AWS_REGION: us-east-1
+  APP_NAME: sample-app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print variables
+        run: |
+          echo "Region: $AWS_REGION"
+          echo "App Name: $APP_NAME"
+```
+
+### ✅ Beginner Tip
+
+> Defined **once**, used **everywhere**.
+
+---
+
+## 2️⃣ Job-Level Environment Variables
+
+### 🔹 What is it?
+
+Variables defined **inside a job**.
+They are available to **all steps of that job only**.
+
+### 🔹 When to use?
+
+Use when the value is needed **only for one job**, such as:
+
+* Build environment
+* Job-specific configuration
+
+### 🔹 Example
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BUILD_ENV: production
+
+    steps:
+      - name: Print job variable
+        run: |
+          echo "Build Environment: $BUILD_ENV"
+```
+
+### ✅ Beginner Tip
+
+> Job-level variables **do not work in other jobs**.
+
+---
+
+## 3️⃣ Step-Level Environment Variables
+
+### 🔹 What is it?
+
+Variables defined **inside a single step**.
+They are available **only in that step**.
+
+### 🔹 When to use?
+
+Use for:
+
+* Temporary values
+* Step-specific flags
+* Values used only once
+
+### 🔹 Example
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step with variable
+        env:
+          MESSAGE: "Hello from this step"
+        run: |
+          echo "$MESSAGE"
+```
+
+### ✅ Beginner Tip
+
+> Step-level variables are **not shared** with other steps.
+
+---
+
+## 🔁 Priority Order (Very Important)
+
+If the **same variable name** is defined at multiple levels, GitHub Actions uses this priority:
+
+```
+Step level > Job level > Workflow level
+```
+
+### 🔹 Example
+
+```yaml
+env:
+  ENV_NAME: workflow
+
+jobs:
+  build:
+    env:
+      ENV_NAME: job
+
+    steps:
+      - name: Check priority
+        env:
+          ENV_NAME: step
+        run: |
+          echo $ENV_NAME
+```
+
+### 🔹 Output:
+
+```
+step
+```
+
+### ✅ Beginner Tip
+
+> The **closest definition wins**.
+
+---
+
+## 🔐 Environment Variables vs Secrets (Simple)
+
+| Environment Variables | Secrets                    |
+| --------------------- | -------------------------- |
+| Plain text            | Encrypted                  |
+| Visible in workflow   | Hidden in logs             |
+| Used for configs      | Used for passwords, tokens |
+
+### 🔹 Using Secrets as Env Variables
+
+```yaml
+env:
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+```
+
+---
+
+## 🧪 Real-World Example (CI/CD)
+
+```yaml
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SERVICE: SES
+
+    steps:
+      - name: Deployment step
+        env:
+          STATUS: SUCCESS
+        run: |
+          echo "Deploying $SERVICE in $AWS_REGION with status $STATUS"
+```
+
+---
+
 
