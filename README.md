@@ -2155,7 +2155,7 @@ Copy and paste the workflow below:
 name: Context Objects Lab
 
 on:
-  workflow_dispatch:   # allows manual triggering
+  workflow_dispatch:
 
 jobs:
   show-contexts:
@@ -2173,9 +2173,6 @@ jobs:
 
       - name: Print Runner Info
         run: echo "Runner OS: ${{ runner.os }}"
-
-      - name: Print Job Status
-        run: echo "Job ID: ${{ job.status }}"
 
       - name: Print Environment Variable
         env:
