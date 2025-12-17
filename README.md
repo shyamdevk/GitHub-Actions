@@ -1929,7 +1929,11 @@ Information about:
 * Repository
 * Branch
 * Commit
-* Workflow run
+* Workflow trigger event
+* Actor (who triggered workflow)
+* Pull request information (if PR workflow)
+
+---
 
 ### 🔹 Syntax
 
@@ -1937,22 +1941,78 @@ Information about:
 ${{ github.<property> }}
 ```
 
+---
+
 ### 🔹 Simple Example
 
 ```yaml
 - name: GitHub context example
   run: |
     echo "Repository: ${{ github.repository }}"
-    echo "Branch: ${{ github.ref_name }}"
+    echo "Branch (ref_name): ${{ github.ref_name }}"
+    echo "Full ref: ${{ github.ref }}"
+    echo "Triggered By: ${{ github.actor }}"
+    echo "Event Name: ${{ github.event_name }}"
+    echo "Pull Request Number: ${{ github.event.pull_request.number }}"
 ```
 
-### 🔹 Common Properties
+---
 
-| Property            | Description     |
-| ------------------- | --------------- |
-| `github.repository` | Repository name |
-| `github.ref_name`   | Branch name     |
-| `github.sha`        | Commit ID       |
+### 🔹 Common Properties (Updated Table)
+
+| Property                           | Description                                        |
+| ---------------------------------- | -------------------------------------------------- |
+| `github.repository`                | Repository name (`user/repo`)                      |
+| `github.ref_name`                  | Branch name only (e.g., `main`)                    |
+| `github.ref`                       | Full Git ref (e.g., `refs/heads/main`)             |
+| `github.sha`                       | Commit ID                                          |
+| `github.actor`                     | Username who triggered workflow                    |
+| `github.event_name`                | Event type (push, pull_request, workflow_dispatch) |
+| `github.event.pull_request.number` | PR number (only for pull_request events)           |
+
+---
+
+## 🧠 Quick Explanation of Added Properties
+
+### ✔ `github.ref`
+
+Full reference string
+Example:
+
+```
+refs/heads/main
+```
+
+### ✔ `github.actor`
+
+Who triggered the workflow
+Example:
+
+```
+shyamdevk
+```
+
+### ✔ `github.event_name`
+
+Type of event
+Examples:
+
+```
+push  
+pull_request  
+workflow_dispatch
+```
+
+### ✔ `github.event.pull_request.number`
+
+Pull request number
+Example:
+
+```
+12
+```
+
+(Only works when workflow is triggered by a `pull_request` event)
 
 ---
 
