@@ -2098,4 +2098,122 @@ ${{ job.<property> }}
 
 ---
 
+# 📘 **GitHub Actions Lab – Understanding Context Objects**
+
+Welcome to the simplest and most practical lab for understanding **GitHub Context Objects**.
+This guide will help you learn how GitHub Actions reads information about your repository, workflow, runner, and job.
+
+---
+
+## 🎯 **Lab Objectives**
+
+By the end of this lab, you will learn:
+
+* What GitHub **context objects** are
+* How to **print context values** inside a workflow
+* How to **use step outputs**
+* How to **view context values** in GitHub Actions logs
+
+---
+
+---
+
+# 🧪 **1. Lab Setup**
+
+## 👉 **Step 1: Create a New Repository**
+
+1. Go to **[https://github.com](https://github.com)**
+2. Click **New Repository**
+3. Name it:
+
+   ```
+   context-objects-lab
+   ```
+4. Keep it **Public** (recommended for beginners)
+5. Click **Create Repository**
+
+---
+
+## 👉 **Step 2: Create Workflow File**
+
+Inside your new repo:
+
+1. Click **Add file → Create new file**
+2. Name the file:
+
+   ```
+   .github/workflows/context.yml
+   ```
+
+---
+
+# 📝 **2. Add Workflow Code**
+
+Copy and paste the workflow below:
+
+```yaml
+name: Context Objects Lab
+
+on:
+  workflow_dispatch:   # allows manual triggering
+
+jobs:
+  show-contexts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print GitHub Context
+        run: echo "Repository: ${{ github.repository }}"
+
+      - name: Print Trigger Details
+        run: echo "Event Name: ${{ github.event_name }}"
+
+      - name: Print Commit Info
+        run: echo "Commit Actor: ${{ github.actor }}"
+
+      - name: Print Runner Info
+        run: echo "Runner OS: ${{ runner.os }}"
+
+      - name: Print Job Status
+        run: echo "Job ID: ${{ job.status }}"
+
+      - name: Print Environment Variable
+        env:
+          MY_VAR: "Hello from environment"
+        run: echo "Env Value: $MY_VAR"
+
+      - name: Save Output Using Steps Context
+        id: example
+        run: echo "value=This is a step output" >> $GITHUB_OUTPUT
+
+      - name: Print Step Output
+        run: echo "Output from previous step: ${{ steps.example.outputs.value }}"
+```
+
+---
+
+# ▶️ **3. Run the Workflow**
+
+1. Go to the **Actions** tab
+2. Select **Context Objects Lab**
+3. Click **Run Workflow**
+4. Click **Run Workflow** again to start the job
+
+---
+
+# 📊 **4. View the Results**
+
+Open the workflow run → expand each step → you will see context values such as:
+
+| Context                       | Description               | Example Output             |
+| ----------------------------- | ------------------------- | -------------------------- |
+| `github.repository`           | Repo name                 | `user/context-objects-lab` |
+| `github.event_name`           | Event triggered workflow  | `workflow_dispatch`        |
+| `github.actor`                | Who triggered workflow    | `shyamdevk`                |
+| `runner.os`                   | OS of GitHub runner       | `Linux`                    |
+| `job.status`                  | Job status                | `Success`                  |
+| `steps.example.outputs.value` | Output from previous step | `This is a step output`    |
+
+---
+
 
