@@ -2622,3 +2622,210 @@ Go to **GitHub → Actions tab** to see the workflow running.
 ✔ Interview-ready
 
 ---
+# 🔗 GitHub Packages & GitHub Actions Integration  
+
+---
+
+## 📘 What is GitHub Packages?
+
+**GitHub Packages** is a package registry provided by GitHub.  
+It allows you to **store, version, and share packages** such as:
+
+- Docker images
+- npm packages
+- Maven packages
+- Python packages
+
+📌 Think of GitHub Packages as **Docker Hub / npm registry, but inside GitHub**.
+
+---
+
+## ⚙️ What is GitHub Actions?
+
+**GitHub Actions** is GitHub’s built-in **CI/CD automation tool**.
+
+It helps you:
+- Build applications automatically
+- Run tests
+- Build Docker images
+- Push packages to GitHub Packages
+
+📌 Simply: **automation that runs when you push code to GitHub**.
+
+---
+
+## 🔗 Why Integrate GitHub Packages with GitHub Actions?
+
+Because:
+- GitHub Actions can **build your package**
+- Automatically **push it to GitHub Packages**
+- No manual Docker or package upload needed
+
+### 🔄 Simple Flow
+```
+
+Code Push → GitHub Actions Runs → Package Built → Stored in GitHub Packages
+
+````
+
+---
+
+## 🧪 LAB: Push Docker Image to GitHub Packages using GitHub Actions
+
+### 🎯 Lab Goal
+Automatically build a Docker image and push it to **GitHub Packages** using **GitHub Actions**.
+
+---
+
+## 🛠️ Prerequisites
+- GitHub account
+- Git installed
+- Basic Docker knowledge
+- Public GitHub repository
+
+---
+
+## 📁 Step 1: Create a GitHub Repository
+
+1. Go to GitHub
+2. Click **New Repository**
+3. Repository name: `github-packages-lab`
+4. Select **Public**
+5. Add a README file
+6. Create repository
+
+---
+
+## 📁 Step 2: Create a Simple Application
+
+### Create `app.py`
+```python
+print("Hello from GitHub Packages Lab!")
+````
+
+---
+
+### Create `Dockerfile`
+
+```dockerfile
+FROM python:3.10-slim
+WORKDIR /app
+COPY app.py .
+CMD ["python", "app.py"]
+```
+
+📌 This Dockerfile creates a simple Python container.
+
+---
+
+## ⚙️ Step 3: Create GitHub Actions Workflow
+
+### Create folders
+
+```text
+.github/
+ └── workflows/
+```
+
+### Create file
+
+`.github/workflows/docker-publish.yml`
+
+```yaml
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/github-packages-lab:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/github-packages-lab:latest
+```
+
+---
+
+## 🔐 Step 4: Enable Workflow Permissions
+
+1. Go to **Repository → Settings**
+2. Open **Actions → General**
+3. Under **Workflow permissions**
+4. Select:
+
+   ```
+   ✅ Read and write permissions
+   ```
+5. Click **Save**
+
+📌 Required to push packages to GitHub Packages.
+
+---
+
+## ▶️ Step 5: Push Code to GitHub
+
+```bash
+git add .
+git commit -m "GitHub Packages Actions Lab"
+git push origin main
+```
+
+📌 This triggers the GitHub Actions workflow automatically.
+
+---
+
+## 📦 Step 6: Verify GitHub Packages
+
+1. Go to your GitHub repository
+2. Click **Packages** (right side)
+3. You should see:
+
+   ```
+   ghcr.io/<your-username>/github-packages-lab
+   ```
+
+🎉 **Docker image successfully published!**
+
+---
+
+## 🔁 Step 7: Pull the Image (Optional Test)
+
+```bash
+docker pull ghcr.io/<your-username>/github-packages-lab:latest
+```
+
+---
+
+## 🧠 Interview One-Liners
+
+* **GitHub Packages**: A registry to store and manage application packages inside GitHub.
+* **GitHub Actions**: CI/CD tool to automate build, test, and deployment.
+* **Integration**: GitHub Actions builds and pushes packages automatically to GitHub Packages.
+
+---
+
+## ✅ Final Summary
+
+> GitHub Actions automates the build process,
+> GitHub Packages stores the output,
+> and the package is ready for deployment or reuse.
+
+---
