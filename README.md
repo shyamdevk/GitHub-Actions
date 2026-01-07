@@ -2213,5 +2213,162 @@ Open the workflow run → expand each step → you will see context values such 
 | `steps.example.outputs.value` | Output from previous step | `This is a step output`    |
 
 ---
+## 📘 SonarQube in GitHub Actions
+
+![Image](https://media.licdn.com/dms/image/v2/D4E12AQEdnHEcn-jP9w/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1700936838542?e=2147483647\&t=6OViaARKoA7NNIW3_dKtSI0_jJA-0u9SHs7-ut8SO6A\&v=beta)
+
+![Image](https://gofore.com/media/2022/11/sonar_code-quality-metrics_overview_2019-04-1.png)
+
+![Image](https://d2908q01vomqb2.cloudfront.net/7719a1c782a1ba91c031a682a0a2f8658209adbf/2022/03/27/1-ArchitectureDiagram.png)
+
+![GitHub Actions](https://github.com/shyamdevk/GitHub-Actions/blob/image/sonar.gif)
+
+---
+
+## 🔍 What is SonarQube?
+
+**SonarQube** is a **code quality and security analysis tool**.
+It scans source code and finds:
+
+* 🐞 Bugs
+* 🔐 Security vulnerabilities
+* 🧹 Code smells (bad coding practices)
+
+👉 It works **without running the code** (this is called *static code analysis*).
+
+---
+
+## ⚙️ What is GitHub Actions?
+
+**GitHub Actions** is a **CI/CD automation tool** inside GitHub.
+It runs workflows written in `.yml` files when:
+
+* Code is pushed
+* A pull request is created
+
+---
+
+## 🔗 Why use SonarQube with GitHub Actions?
+
+Using SonarQube in GitHub Actions helps to:
+
+* Automatically check **code quality**
+* Detect **security issues early**
+* Maintain **clean and professional code**
+* Block bad code using **Quality Gates**
+
+**Simple idea:**
+
+> Push code → GitHub Actions runs → SonarQube scans → Report is generated
+
+---
+
+## 🔄 How It Works (Flow)
+
+1. Developer pushes code to GitHub
+2. GitHub Actions workflow starts
+3. SonarQube Scanner analyzes the code
+4. Results are sent to SonarQube dashboard
+5. Quality Gate decides **Pass ✅ or Fail ❌**
+
+---
+
+## 🛑 What Issues Does SonarQube Detect?
+
+* Hardcoded passwords or secrets
+* Unused variables and dead code
+* Duplicate code blocks
+* Security risks like SQL Injection, XSS
+
+---
+
+## 🧠 Important Terms (Easy)
+
+* **Static Code Analysis** → Checking code without execution
+* **Quality Gate** → Rules to allow or block code
+* **Sonar Token** → Secret key to connect GitHub with SonarQube
+
+---
+
+## ☁️ Where Can SonarQube Run?
+
+* **SonarQube Cloud** (recommended for beginners)
+* **Self-hosted SonarQube** (EC2 / on-prem server)
+
+---
+
+## ⭐ One-Line Summary
+
+> **SonarQube in GitHub Actions automatically checks code quality and security in a CI/CD pipeline.**
+
+## 📘 Static Code Analysis
+
+![Image](https://www.mathworks.com/products/polyspace/static-analysis-notes/continuous-integration-continuous-delivery/_jcr_content/mainParsys/band_367826542_copy/mainParsys/columns/b66891e9-a8fb-4eea-9857-1ac026b517bf/image_copy.adapt.full.medium.jpg/1732013346385.jpg)
+
+![Image](https://www.qt.io/hs-fs/hubfs/Group%202-1.png?height=423\&name=Group+2-1.png\&width=742)
+
+![Image](https://www.researchgate.net/publication/221343094/figure/fig3/AS%3A667633057812488%401536187533565/Source-code-analysis-process.png)
+
+---
+
+## 🔍 What is Static Code Analysis?
+
+**Static Code Analysis** means **analyzing source code without running the program**.
+
+👉 The tool scans the code files and finds problems **before execution**.
+
+---
+
+## 🎯 Why Static Code Analysis is Important?
+
+* 🐞 Finds bugs early
+* 🔐 Detects security vulnerabilities
+* 🧹 Improves code quality
+* ⏱️ Saves time and cost
+* 🚫 Prevents bad code from reaching production
+
+---
+
+## 🛑 What Issues Can It Detect?
+
+* Hardcoded passwords and secrets
+* Unused variables and functions
+* Duplicate code
+* Security risks (SQL Injection, XSS)
+* Poor coding practices (code smells)
+
+---
+
+## 🛠️ Popular Static Code Analysis Tools
+
+* **SonarQube** – Code quality & security analysis
+* **ESLint** – JavaScript code checking
+* **Pylint** – Python code analysis
+* **Checkstyle** – Java coding standards
+
+---
+
+## 🔄 Static vs Dynamic Code Analysis
+
+| Static Code Analysis     | Dynamic Code Analysis |
+| ------------------------ | --------------------- |
+| Code is **not executed** | Code is **executed**  |
+| Finds issues early       | Finds runtime issues  |
+| Faster analysis          | Slower analysis       |
+| Used in CI/CD            | Used in testing phase |
+
+---
+
+## 🔁 Where Is Static Code Analysis Used?
+
+* CI/CD pipelines (GitHub Actions, Jenkins)
+* Code reviews
+* Before production deployment
+
+---
+
+## ⭐ One-Line Summary
+
+> **Static Code Analysis checks source code for bugs, security issues, and bad practices without running the code.**
 
 
