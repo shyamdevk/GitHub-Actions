@@ -2829,3 +2829,329 @@ docker pull ghcr.io/<your-username>/github-packages-lab:latest
 > and the package is ready for deployment or reuse.
 
 ---
+
+# 🚀 GitHub Actions – What is an Action?
+
+## 📌 What is an Action?
+
+A **GitHub Action** is a **reusable task** that performs **one specific job** in a GitHub Actions workflow.
+
+👉 Think of an **Action** as a **ready-made script** that you can plug into your CI/CD pipeline.
+
+---
+
+## 🧠 Simple Explanation
+
+An **Action** can do things like:
+- 📥 Download your code
+- 🧪 Run tests
+- 🏗️ Build your application
+- 🚀 Deploy your app
+- 🔐 Scan code for security issues
+
+Actions help **automate work** whenever something happens in a repository (like a push or pull request).
+
+---
+
+## 🧩 Where Actions Fit
+
+Actions are used inside **workflows** in **:contentReference[oaicite:1]{index=1} Actions**.
+
+### Workflow Structure
+```
+
+Workflow
+└── Job
+└── Step
+└── Action ✅
+
+````
+
+---
+
+## 🛠️ Simple Action Example
+
+```yaml
+- name: Checkout source code
+  uses: actions/checkout@v4
+````
+
+### 🔍 What this does?
+
+* Downloads your GitHub repository code
+* Makes the code available for the next steps
+
+---
+
+## 📂 Types of GitHub Actions
+
+### 1️⃣ Official Actions
+
+* Created by GitHub
+* Trusted and widely used
+  Example:
+
+```
+actions/checkout
+```
+
+### 2️⃣ Community Actions
+
+* Created by developers worldwide
+* Available publicly
+
+### 3️⃣ Custom Actions
+
+* Actions you create yourself
+* Useful for custom workflows
+
+---
+
+## 🛒 Where Do Actions Come From?
+
+You can find Actions in the **GitHub Marketplace**.
+
+👉 You can directly use them in your workflow using the `uses:` keyword.
+
+---
+
+## ⭐ Why GitHub Actions Are Useful
+
+* ✅ Saves time
+* ♻️ Reusable across projects
+* 🧩 No need to write scripts from scratch
+* 🚀 Makes CI/CD easy and automated
+
+---
+
+## 📝 One-Line Summary (Interview Ready)
+
+> **A GitHub Action is a reusable unit of code that performs a specific task inside a GitHub Actions workflow.**
+
+---
+Here is a **clean, simple, well-decorated `README.md`** based on the **Custom Actions** concept from the shared repository.
+You can **directly copy–paste** this into your notes or project.
+
+---
+
+# ⚙️ GitHub Actions – Importance, Uses & Custom Action Guide
+
+## ⭐ Importance of GitHub Actions
+
+### 🔹 1. Automation
+- Automatically run tasks when an event occurs (push, pull request, release)
+- No manual work needed
+
+### 🔹 2. Saves Time
+- Reuse existing actions instead of writing scripts every time
+- Faster development and deployment
+
+### 🔹 3. Consistency
+- Same process runs every time
+- Reduces human errors
+
+### 🔹 4. Easy CI/CD
+- Build → Test → Deploy automatically
+- Works directly inside GitHub
+
+---
+
+## 🧠 Uses of GitHub Actions
+
+GitHub Actions are used to:
+
+- 🧪 Run tests automatically
+- 🏗️ Build applications
+- 🚀 Deploy applications
+- 🔐 Scan code for security issues
+- 📦 Publish packages
+- 📢 Send notifications (Slack, Email, etc.)
+
+---
+
+## 🧩 Why Custom Actions?
+
+Custom Actions are used when:
+- Built-in actions are not enough
+- You want **your own reusable logic**
+- You want to keep workflows **clean and simple**
+
+### ✅ Benefits of Custom Actions
+- Reusable across multiple workflows
+- Clean workflow files
+- Easy team collaboration
+- Shareable via GitHub Marketplace (optional)
+
+---
+
+# 🧪 GitHub Actions Custom Action – Simple Lab
+
+This lab helps you understand **how to create and use a custom GitHub Action** and run it using **GitHub Actions workflow**.
+
+---
+
+## 🎯 Lab Objective
+
+- Create a **custom GitHub Action**
+- Use it inside a **GitHub Actions workflow**
+- Push `.yml` files into GitHub repository
+- Automatically trigger workflow on `git push`
+
+---
+
+## 🧠 What is a Custom GitHub Action?
+
+A **custom action** is an action that **you create yourself** instead of using ready-made actions from the GitHub Marketplace.
+
+---
+
+## 📁 Project Structure
+
+```
+
+github-actions-custom-lab/
+├── .github/
+│   └── workflows/
+│       └── custom-action.yml
+├── my-custom-action/
+│   └── action.yml
+├── README.md
+
+```
+
+---
+
+## 🛠 Step 1: Create GitHub Repository
+
+1. Go to GitHub
+2. Click **New Repository**
+3. Repository name:
+```
+
+github-actions-custom-lab
+
+````
+4. Set visibility to **Public**
+5. Click **Create repository**
+
+---
+
+## 🛠 Step 2: Clone Repository
+
+```bash
+git clone https://github.com/<your-username>/github-actions-custom-lab.git
+cd github-actions-custom-lab
+````
+
+---
+
+## 🛠 Step 3: Create Custom Action
+
+```bash
+mkdir my-custom-action
+cd my-custom-action
+nano action.yml
+```
+
+### 📄 `my-custom-action/action.yml`
+
+```yaml
+name: "My Custom Action"
+description: "Simple custom GitHub Action"
+author: "Your Name"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Print message
+      run: echo "✅ Hello from my custom GitHub Action!"
+      shell: bash
+```
+
+Save and exit.
+
+---
+
+## 🛠 Step 4: Create Workflow File
+
+```bash
+cd ..
+mkdir -p .github/workflows
+nano .github/workflows/custom-action.yml
+```
+
+### 📄 `.github/workflows/custom-action.yml`
+
+```yaml
+name: Custom Action Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-custom-action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run my custom action
+        uses: ./my-custom-action
+```
+
+---
+
+## 🛠 Step 5: Push Files to GitHub
+
+> ⚠️ GitHub **does not allow password authentication**.
+> You must use a **Personal Access Token (PAT)** with `repo` and `workflow` permissions.
+
+```bash
+git add .
+git commit -m "Added custom GitHub Action and workflow"
+git push origin main
+```
+
+When prompted:
+
+* **Username** → your GitHub username
+* **Password** → paste your **PAT token**
+
+---
+
+## ▶️ Step 6: Verify Workflow Execution
+
+1. Open your repository on GitHub
+2. Click **Actions**
+3. Select **Custom Action Workflow**
+4. Open logs
+
+### ✅ Expected Output
+
+```
+✅ Hello from my custom GitHub Action!
+```
+
+---
+
+## 🧠 Key Learnings
+
+* GitHub Actions run workflows defined in `.github/workflows`
+* Custom actions can be stored locally in the repository
+* Workflow files require `workflow` permission in PAT
+* Actions are triggered automatically on events like `push`
+
+---
+
+## 🔐 Common Errors & Fixes
+
+| Error                  | Solution                    |
+| ---------------------- | --------------------------- |
+| 403 permission denied  | Use PAT instead of password |
+| Workflow push rejected | Add `workflow` scope to PAT |
+
+---
+
