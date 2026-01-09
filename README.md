@@ -3154,4 +3154,427 @@ When prompted:
 | Workflow push rejected | Add `workflow` scope to PAT |
 
 ---
+# GitHub Actions – Matrix (Multi Configuration) Strategy
+
+## What is Matrix in GitHub Actions?
+**Matrix strategy** in GitHub Actions allows you to run the **same job multiple times** with **different configurations** such as:
+- Operating systems
+- Programming language versions
+- Tool versions
+
+👉 One workflow can test many environments automatically.
+
+---
+
+## Why Use Matrix?
+- ✅ Test your code on **multiple environments**
+- ✅ Avoid **duplicate jobs**
+- ✅ Faster and cleaner CI workflows
+- ✅ Easy to scale testing
+
+---
+
+## Matrix Strategy Example with Comments
+
+```yaml
+# Name of the GitHub Actions workflow
+name: Matrix Demo
+
+# Workflow will run whenever code is pushed to the repository
+on: [push]
+
+jobs:
+  # Job name
+  build:
+    # The OS where the job runs
+    # This value comes from the matrix (ubuntu or windows)
+    runs-on: ${{ matrix.os }}
+
+    # Matrix strategy allows running the same job
+    # with multiple configurations
+    strategy:
+      matrix:
+        # Operating systems to test on
+        os: [ubuntu-latest, windows-latest]
+
+        # Node.js versions to test with
+        node-version: [16, 18]
+
+    steps:
+    # Step 1: Checkout (download) the repository code
+    - uses: actions/checkout@v4
+
+    # Step 2: Setup Node.js environment
+    # Node version comes from matrix.node-version
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Step 3: Install project dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run test cases
+    - name: Run tests
+      run: npm test
+```
+
+## What Happens Internally?
+
+GitHub Actions creates **multiple jobs automatically**:
+
+| OS      | Node Version |
+| ------- | ------------ |
+| Ubuntu  | 16           |
+| Ubuntu  | 18           |
+| Windows | 16           |
+| Windows | 18           |
+
+✔ Same steps
+✔ Different environments
+
+---
+
+## Accessing Matrix Values
+
+Use matrix variables like this:
+
+```yaml
+${{ matrix.os }}
+${{ matrix.node-version }}
+```
+
+---
+
+## Excluding a Matrix Combination
+
+If a specific combination should not run:
+
+```yaml
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest]
+    node-version: [16, 18]
+    exclude:
+      - os: windows-latest
+        node-version: 16
+```
+
+❌ Windows + Node 16 will be skipped
+
+---
+
+## Including Custom Values
+
+You can add extra values for special cases:
+
+```yaml
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest]
+    include:
+      - os: ubuntu-latest
+        special: true
+```
+
+Use it in steps like:
+
+```yaml
+${{ matrix.special }}
+```
+
+---
+
+## Real-World Use Cases
+
+* Cross-platform testing (Linux, Windows, macOS)
+* Testing with multiple language versions
+* Running security scans with different tools
+* CI for enterprise-level applications
+
+---
+
+## Interview One-Liner 🎯
+
+> Matrix strategy in GitHub Actions allows running the same job multiple times with different configurations like OS or software versions.
+
+---
+# Java CI/CD Pipeline using GitHub Actions (Matrix Strategy Lab)
+
+This is a **beginner-friendly hands-on lab** to build a **Java application** using **multiple JDK versions (17, 21, 24)** and **multiple OS (Ubuntu & Windows)** using **GitHub Actions Matrix strategy**.
+
+You will:
+- Create a simple Java app
+- Configure GitHub Actions CI pipeline
+- Build the app on different OS + JDK versions automatically
+
+---
+
+## Lab Objective 🎯
+- Learn **Matrix (Multi-configuration)** in GitHub Actions
+- Understand **DRY principle** in CI/CD
+- Build Java using **JDK 17, 21, 24**
+- Run builds on **Ubuntu & Windows**
+
+---
+
+## Prerequisites ✅
+- GitHub account
+- Basic Java knowledge
+- Git installed
+- Java code editor (VS Code recommended)
+
+---
+
+## Step 1: Create a New GitHub Repository
+
+1. Go to GitHub
+2. Click **New Repository**
+3. Repository name: `java-matrix-ci`
+4. Select **Public**
+5. Click **Create repository**
+
+---
+
+## Step 2: Clone the Repository
+
+```bash
+git clone https://github.com/<your-username>/java-matrix-ci.git
+cd java-matrix-ci
+````
+
+---
+
+## Step 3: Create Project Structure
+
+```text
+java-matrix-ci/
+│
+├── src/
+│   └── App.java
+│
+├── .github/
+│   └── workflows/
+│       └── java-ci.yml
+│
+└── README.md
+```
+
+---
+
+## Step 4: Create Java File (App.java)
+
+📁 `src/App.java`
+
+```java
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Java CI/CD Matrix Build Successful!");
+    }
+}
+```
+
+✔ Simple Java program
+✔ No dependencies needed
+
+---
+
+## Step 5: Create GitHub Actions Workflow
+
+📁 `.github/workflows/java-ci.yml`
+
+```yaml
+# Name of the workflow
+name: Java Matrix CI Pipeline
+
+# Trigger workflow on push
+on: [push]
+
+jobs:
+  build:
+    # OS comes from matrix
+    runs-on: ${{ matrix.os }}
+
+    # Matrix strategy for multiple OS and JDK versions
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        java-version: [17, 21, 24]
+
+    steps:
+    # Step 1: Checkout repository code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Step 2: Setup Java based on matrix version
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: ${{ matrix.java-version }}
+
+    # Step 3: Compile Java program
+    - name: Compile Java
+      run: javac src/App.java
+
+    # Step 4: Run Java program
+    - name: Run Java App
+      run: java -cp src App
+```
+
+---
+
+## Step 6: Push Code to GitHub
+
+```bash
+git add .
+git commit -m "Add Java CI pipeline with matrix strategy"
+git push origin main
+```
+
+---
+
+## Step 7: Verify GitHub Actions
+
+1. Go to your GitHub repository
+2. Click **Actions**
+3. Open **Java Matrix CI Pipeline**
+
+You will see **6 jobs running**:
+
+| OS      | JDK |
+| ------- | --- |
+| Ubuntu  | 17  |
+| Ubuntu  | 21  |
+| Ubuntu  | 24  |
+| Windows | 17  |
+| Windows | 21  |
+| Windows | 24  |
+
+✔ Same job
+✔ Different configurations
+
+---
+
+## Step 8: Understand What Happened
+
+* Matrix created **6 parallel builds**
+* Same Java code compiled everywhere
+* Follows **DRY principle**
+* Ensures compatibility across environments
+
+---
+
+## Interview One-Liner 🎯
+
+> I used GitHub Actions matrix strategy to build a Java application across multiple JDK versions and operating systems using a single CI pipeline.
+
+---
+# DRY Principle (Don't Repeat Yourself)
+
+### What is DRY?
+**DRY** stands for **Don’t Repeat Yourself**.
+
+👉 It means **avoid writing the same code, logic, or configuration again and again**.  
+Instead, **reuse** it from a single place.
+
+---
+
+### Simple Definition
+> Every piece of knowledge or logic should have a **single, unambiguous source**.
+
+---
+
+### Why DRY is Important?
+- ✅ Easier to **maintain**
+- ✅ Reduces **errors**
+- ✅ Saves **time and effort**
+- ✅ Code/config becomes **clean and readable**
+- ✅ Changes need to be done in **one place only**
+
+---
+
+### DRY in Programming (Simple Example)
+
+❌ **Not DRY (Repeating Code)**
+```python
+print("Welcome User")
+print("Welcome User")
+print("Welcome User")
+````
+
+✅ **DRY (Reusable Code)**
+
+```python
+def welcome():
+    print("Welcome User")
+
+welcome()
+welcome()
+welcome()
+```
+
+---
+
+### DRY in GitHub Actions (Without Matrix)
+
+❌ Repeating jobs
+
+```yaml
+jobs:
+  build-node-16:
+    runs-on: ubuntu-latest
+    steps:
+      - run: node --version
+
+  build-node-18:
+    runs-on: ubuntu-latest
+    steps:
+      - run: node --version
+```
+
+---
+
+### DRY in GitHub Actions (Using Matrix)
+
+✅ Same logic, multiple configurations
+
+```yaml
+strategy:
+  matrix:
+    node-version: [16, 18]
+```
+
+✔ One job
+✔ No duplication
+
+---
+
+### DRY in CI/CD Pipelines
+
+* Use **matrix strategy**
+* Reuse **steps**
+* Use **reusable workflows**
+* Use **variables & secrets**
+* Avoid copy-pasting jobs
+
+---
+
+### DRY vs WET
+
+| DRY                   | WET                    |
+| --------------------- | ---------------------- |
+| Don’t Repeat Yourself | Write Everything Twice |
+| Clean & maintainable  | Messy & error-prone    |
+| Easy updates          | Hard to fix            |
+
+---
+
+### Interview One-Liner 🎯
+
+> DRY principle means avoiding duplication by reusing code or configurations from a single source.
+
+---
+
 
