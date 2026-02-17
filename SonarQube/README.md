@@ -1,4 +1,4 @@
-## 📘 SonarQube in GitHub Actions
+# 📘 SonarQube in GitHub Actions
 
 ![Image](https://media.licdn.com/dms/image/v2/D4E12AQEdnHEcn-jP9w/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1700936838542?e=2147483647\&t=6OViaARKoA7NNIW3_dKtSI0_jJA-0u9SHs7-ut8SO6A\&v=beta)
 
